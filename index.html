@@ -1,9 +1,82 @@
 <!doctype html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Email Extractor Pro</title>
+
+  <title>Free Email Extractor from Text and Files | Remove Duplicate Email Addresses | m0.se</title>
+  <meta name="description" content="Free online email extractor that finds unique email addresses from pasted text and uploaded files. Remove duplicates, filter domains, analyze domains and export results.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.m0.se/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Email Extractor from Text and Files">
+  <meta property="og:description" content="Extract unique email addresses from text and files, remove duplicates, filter domains and export results.">
+  <meta property="og:url" content="https://www.m0.se/">
+  <meta property="og:site_name" content="m0.se">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Free Email Extractor from Text and Files">
+  <meta name="twitter:description" content="Extract unique email addresses from text and files, remove duplicates, filter domains and export results.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Free Email Extractor",
+    "url": "https://www.m0.se/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free online tool to extract unique email addresses from pasted text and uploaded files, remove duplicates, filter domains and export results."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this email extractor free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The tool is free to use in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it remove duplicate email addresses?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The tool can detect and remove duplicate email addresses automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I upload CSV or text files?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can upload text-based files such as TXT, CSV, TSV, JSON, XML and HTML."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it support domain filtering?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can exclude complete domains from the final email list."
+        }
+      }
+    ]
+  }
+  </script>
+
   <style>
     :root {
       --bg: #f5f7fb;
@@ -22,11 +95,16 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
+      line-height: 1.55;
     }
 
     .container {
@@ -35,14 +113,43 @@
       padding: 0 16px 32px;
     }
 
+    header.container {
+      margin-bottom: 20px;
+    }
+
     h1 {
       margin: 0 0 8px;
-      font-size: 32px;
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      line-height: 1.25;
     }
 
     .subtitle {
       color: var(--muted);
-      margin-bottom: 24px;
+      margin-bottom: 18px;
+      font-size: 18px;
+      max-width: 900px;
+    }
+
+    .intro-text {
+      max-width: 900px;
+      color: #374151;
+    }
+
+    .top-nav {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
     }
 
     .grid {
@@ -62,6 +169,13 @@
 
     .card h2, .card h3 {
       margin-top: 0;
+    }
+
+    .lead-section p,
+    .faq-section p,
+    .howto-section p,
+    .howto-section li {
+      max-width: 900px;
     }
 
     label {
@@ -191,8 +305,8 @@
       font-weight: 700;
     }
 
-    .footer-note {
-      margin-top: 8px;
+    .footer-note,
+    .muted {
       color: var(--muted);
       font-size: 13px;
     }
@@ -222,9 +336,12 @@
       border-radius: 10px;
     }
 
-    .muted {
-      color: var(--muted);
-      font-size: 14px;
+    ol {
+      padding-left: 20px;
+    }
+
+    footer {
+      padding-top: 8px;
     }
 
     @media (max-width: 980px) {
@@ -241,170 +358,243 @@
       .stats {
         grid-template-columns: 1fr;
       }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      textarea {
+        min-height: 150px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Email Extractor Pro</h1>
-    <div class="subtitle">
-      Extrahera mejladresser från text eller fil, ta bort dubletter, analysera domäner och exportera resultat.
-    </div>
+  <header class="container">
+    <h1>Free Email Extractor</h1>
+    <p class="subtitle">
+      Extract unique email addresses from pasted text and uploaded files, remove duplicate email addresses, filter domains and export results online.
+    </p>
+    <p class="intro-text">
+      This free email extractor helps you find email addresses from plain text, HTML, CSV-style content and uploaded text files.
+      Use it to clean contact lists, remove duplicates, exclude entire domains and analyze which domains appear most often.
+    </p>
+    <nav class="top-nav" aria-label="Page navigation">
+      <a href="#tool">Use the tool</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
 
-    <div class="grid">
+  <main class="container">
+    <section class="card lead-section" aria-labelledby="about-tool-heading">
+      <h2 id="about-tool-heading">Email extractor tool for text and files</h2>
+      <p>
+        Paste text directly into the tool or upload a supported text-based file. The extractor scans the content,
+        finds email addresses, removes duplicate email addresses, filters excluded addresses or domains and generates a clean exportable list.
+      </p>
+      <p>
+        This tool is useful for email cleanup, lead list review, domain analysis, contact extraction from notes or logs,
+        and preparing unique email lists for internal workflows.
+      </p>
+    </section>
+
+    <div class="grid" id="tool">
       <div>
-        <div class="card">
-          <h2>1. Inmatning</h2>
+        <section class="card" aria-labelledby="input-heading">
+          <h2 id="input-heading">1. Input text or upload a file</h2>
 
-          <label for="content">Klistra in text</label>
-          <div class="help">Fungerar med fri text, mejltrådar, HTML, CSV-innehåll och listor.</div>
-          <textarea id="content" placeholder="Klistra in text här..."></textarea>
+          <label for="content">Paste text</label>
+          <div class="help">Works with plain text, email threads, HTML, CSV content and copied lists.</div>
+          <textarea id="content" placeholder="Paste text here..."></textarea>
 
-          <label for="fileInput" style="margin-top:16px;">Eller ladda upp fil</label>
-          <div class="help">Stöd för .txt, .csv, .log, .json, .xml, .html och andra textbaserade filer.</div>
+          <label for="fileInput" style="margin-top:16px;">Or upload a file</label>
+          <div class="help">Supports .txt, .csv, .log, .json, .xml, .html, .tsv and .md files.</div>
           <input type="file" id="fileInput" accept=".txt,.csv,.log,.html,.json,.xml,.tsv,.md">
 
-          <div class="footer-note" id="fileStatus">Ingen fil vald.</div>
-        </div>
+          <div class="footer-note" id="fileStatus">No file selected.</div>
+        </section>
 
-        <div class="card">
-          <h2>2. Resultat</h2>
+        <section class="card" aria-labelledby="results-heading">
+          <h2 id="results-heading">2. Extracted email results</h2>
 
           <div class="stats">
             <div class="stat">
-              <div class="label">Totalt hittade</div>
+              <div class="label">Total found</div>
               <div class="value" id="totalCount">0</div>
             </div>
             <div class="stat">
-              <div class="label">Efter filtrering</div>
+              <div class="label">After filtering</div>
               <div class="value" id="filteredCount">0</div>
             </div>
             <div class="stat">
-              <div class="label">Unika mejladresser</div>
+              <div class="label">Unique email addresses</div>
               <div class="value" id="resultCount">0</div>
             </div>
             <div class="stat">
-              <div class="label">Dubletter</div>
+              <div class="label">Duplicates</div>
               <div class="value" id="duplicateCount">0</div>
             </div>
           </div>
 
-          <label for="result">Mejladresser</label>
-          <textarea id="result" placeholder="Extraherade mejladresser visas här..."></textarea>
+          <label for="result">Unique email addresses</label>
+          <textarea id="result" placeholder="Extracted email addresses appear here..."></textarea>
 
           <div class="actions">
-            <button class="btn-success" id="copyResultBtn">Kopiera mejladresser</button>
-            <button class="btn-secondary" id="downloadResultBtn">Ladda ner mejladresser</button>
+            <button class="btn-success" id="copyResultBtn" type="button">Copy email addresses</button>
+            <button class="btn-secondary" id="downloadResultBtn" type="button">Download email addresses</button>
           </div>
 
-          <h3 style="margin-top:20px;">Dubletter</h3>
-          <textarea id="duplicates" class="small-textarea" placeholder="Dubletter visas här..."></textarea>
+          <h3 style="margin-top:20px;">Duplicate email addresses</h3>
+          <textarea id="duplicates" class="small-textarea" placeholder="Duplicate email addresses appear here..."></textarea>
 
           <div class="actions">
-            <button class="btn-secondary" id="copyDuplicatesBtn">Kopiera dubletter</button>
-            <button class="btn-secondary" id="downloadDuplicatesBtn">Ladda ner dubletter</button>
+            <button class="btn-secondary" id="copyDuplicatesBtn" type="button">Copy duplicates</button>
+            <button class="btn-secondary" id="downloadDuplicatesBtn" type="button">Download duplicates</button>
           </div>
-        </div>
+        </section>
       </div>
 
       <div>
-        <div class="card">
-          <h2>3. Inställningar</h2>
+        <section class="card" aria-labelledby="settings-heading">
+          <h2 id="settings-heading">3. Extraction settings</h2>
 
           <div class="checks">
-            <label><input type="checkbox" id="unique" checked> Ta bort dubletter</label>
-            <label><input type="checkbox" id="sort" checked> Sortera alfabetiskt</label>
-            <label><input type="checkbox" id="lowercase"> Konvertera till gemener</label>
+            <label><input type="checkbox" id="unique" checked> Remove duplicate email addresses</label>
+            <label><input type="checkbox" id="sort" checked> Sort alphabetically</label>
+            <label><input type="checkbox" id="lowercase"> Convert to lowercase</label>
           </div>
 
-          <h3>Separator i resultat</h3>
+          <h3>Result separator</h3>
           <div class="radios">
-            <label><input type="radio" name="separator" value="newline" checked> Ny rad</label>
+            <label><input type="radio" name="separator" value="newline" checked> New line</label>
             <label><input type="radio" name="separator" value="tab"> Tab</label>
-            <label><input type="radio" name="separator" value="comma"> Komma + mellanslag</label>
-            <label><input type="radio" name="separator" value="semicolon"> Semikolon + mellanslag</label>
-            <label><input type="radio" name="separator" value="custom"> Anpassad separator</label>
+            <label><input type="radio" name="separator" value="comma"> Comma + space</label>
+            <label><input type="radio" name="separator" value="semicolon"> Semicolon + space</label>
+            <label><input type="radio" name="separator" value="custom"> Custom separator</label>
           </div>
 
           <div class="inline" style="margin-top:10px;">
             <input type="text" id="customSeparator" value=" | " disabled>
           </div>
-        </div>
+        </section>
 
-        <div class="card">
-          <h2>4. Exkludera adresser</h2>
-          <div class="help">Dessa adresser tas bort från slutresultatet.</div>
-          <textarea id="excludeEmails" class="small-textarea" placeholder="exempel@domän.se&#10;annan@domän.se"></textarea>
-        </div>
+        <section class="card" aria-labelledby="exclude-emails-heading">
+          <h2 id="exclude-emails-heading">4. Exclude specific email addresses</h2>
+          <div class="help">Any email addresses pasted here are removed from the final result.</div>
+          <textarea id="excludeEmails" class="small-textarea" placeholder="name@example.com&#10;team@example.org"></textarea>
+        </section>
 
-        <div class="card">
-          <h2>5. Filtrera domäner</h2>
-          <div class="help">Alla adresser från dessa domäner tas bort, till exempel interna domäner.</div>
-          <textarea id="excludeDomains" class="small-textarea" placeholder="företag.se&#10;gmail.com"></textarea>
-        </div>
+        <section class="card" aria-labelledby="exclude-domains-heading">
+          <h2 id="exclude-domains-heading">5. Exclude domains</h2>
+          <div class="help">Remove all email addresses from selected domains, for example internal company domains.</div>
+          <textarea id="excludeDomains" class="small-textarea" placeholder="company.com&#10;gmail.com"></textarea>
+        </section>
 
-        <div class="card">
-          <h2>6. Kör</h2>
+        <section class="card" aria-labelledby="run-heading">
+          <h2 id="run-heading">6. Run the email extractor</h2>
           <div class="actions">
-            <button class="btn-primary" id="extractBtn">Extrahera mejladresser</button>
-            <button class="btn-danger" id="clearBtn">Rensa allt</button>
+            <button class="btn-primary" id="extractBtn" type="button">Extract email addresses</button>
+            <button class="btn-danger" id="clearBtn" type="button">Clear all</button>
           </div>
           <div class="footer-note">
-            Matchningen är praktisk för vanliga mejladresser och domänanalys.
+            Designed for practical email extraction, duplicate removal and domain analysis in the browser.
           </div>
-        </div>
+        </section>
       </div>
     </div>
 
-    <div class="card">
-      <h2>7. Domänanalys</h2>
+    <section class="card" aria-labelledby="domain-analysis-heading">
+      <h2 id="domain-analysis-heading">7. Email domain analysis</h2>
 
       <div class="stats">
         <div class="stat">
-          <div class="label">Unika domäner</div>
+          <div class="label">Unique domains</div>
           <div class="value" id="domainCount">0</div>
         </div>
         <div class="stat">
-          <div class="label">Vanligaste domän</div>
+          <div class="label">Top domain</div>
           <div class="value" id="topDomain" style="font-size:18px;">-</div>
         </div>
         <div class="stat">
-          <div class="label">Antal på toppdomän</div>
+          <div class="label">Top domain count</div>
           <div class="value" id="topDomainCount">0</div>
         </div>
         <div class="stat">
-          <div class="label">Domänexport</div>
+          <div class="label">Export format</div>
           <div class="value" style="font-size:18px;">CSV</div>
         </div>
       </div>
 
-      <label for="uniqueDomains">Unika domäner</label>
-      <textarea id="uniqueDomains" class="small-textarea" placeholder="Unika domäner visas här..."></textarea>
+      <label for="uniqueDomains">Unique domains</label>
+      <textarea id="uniqueDomains" class="small-textarea" placeholder="Unique domains appear here..."></textarea>
 
       <div class="actions">
-        <button class="btn-secondary" id="copyDomainsBtn">Kopiera domäner</button>
-        <button class="btn-secondary" id="downloadDomainsBtn">Ladda ner domäner</button>
-        <button class="btn-secondary" id="downloadDomainStatsBtn">Ladda ner domänstatistik CSV</button>
+        <button class="btn-secondary" id="copyDomainsBtn" type="button">Copy domains</button>
+        <button class="btn-secondary" id="downloadDomainsBtn" type="button">Download domains</button>
+        <button class="btn-secondary" id="downloadDomainStatsBtn" type="button">Download domain stats CSV</button>
       </div>
 
-      <h3 style="margin-top:20px;">Antal per domän</h3>
+      <h3 style="margin-top:20px;">Domain counts</h3>
       <div class="scroll-table">
         <table>
           <thead>
             <tr>
-              <th>Domän</th>
-              <th>Antal</th>
+              <th>Domain</th>
+              <th>Count</th>
             </tr>
           </thead>
           <tbody id="domainTableBody">
             <tr>
-              <td colspan="2" class="muted">Ingen data ännu.</td>
+              <td colspan="2" class="muted">No data yet.</td>
             </tr>
           </tbody>
         </table>
       </div>
+    </section>
+
+    <section class="card howto-section" id="how-it-works" aria-labelledby="how-heading">
+      <h2 id="how-heading">How the email extractor works</h2>
+      <ol>
+        <li>Paste text or upload a supported file.</li>
+        <li>Click <strong>Extract email addresses</strong>.</li>
+        <li>Review unique email addresses, duplicates and domain statistics.</li>
+        <li>Copy or download the result as text or CSV.</li>
+      </ol>
+      <p>
+        The tool is built for fast browser-based processing and simple list cleanup workflows.
+      </p>
+    </section>
+
+    <section class="card faq-section" id="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">FAQ</h2>
+
+      <h3>Is this email extractor free?</h3>
+      <p>Yes. The tool is free to use in your browser.</p>
+
+      <h3>Can it remove duplicate email addresses?</h3>
+      <p>Yes. It can detect and remove duplicate email addresses automatically.</p>
+
+      <h3>Can I upload CSV or text files?</h3>
+      <p>Yes. Supported text-based formats include TXT, CSV, TSV, JSON, XML, HTML and Markdown files.</p>
+
+      <h3>Can I exclude certain domains from the results?</h3>
+      <p>Yes. Add one domain per line and the tool will exclude all matching email addresses from the final output.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="card">
+      <h2>About m0.se</h2>
+      <p>
+        m0.se provides simple browser-based utility tools for data cleanup, extraction and analysis.
+      </p>
     </div>
-  </div>
+  </footer>
 
   <script>
     function getSeparator() {
@@ -550,7 +740,7 @@
       const tbody = document.getElementById('domainTableBody');
 
       if (!domainStats.length) {
-        tbody.innerHTML = '<tr><td colspan="2" class="muted">Ingen data ännu.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="2" class="muted">No data yet.</td></tr>';
         return;
       }
 
@@ -576,12 +766,12 @@
       try {
         await navigator.clipboard.writeText(text);
         const oldText = button.textContent;
-        button.textContent = 'Kopierat';
+        button.textContent = 'Copied';
         setTimeout(() => {
           button.textContent = oldText;
         }, 1200);
       } catch (err) {
-        alert('Kunde inte kopiera till urklipp.');
+        alert('Could not copy to clipboard.');
       }
     }
 
@@ -645,9 +835,9 @@
       document.getElementById('topDomain').textContent = '-';
       document.getElementById('topDomainCount').textContent = '0';
       document.getElementById('fileInput').value = '';
-      document.getElementById('fileStatus').textContent = 'Ingen fil vald.';
+      document.getElementById('fileStatus').textContent = 'No file selected.';
       document.getElementById('domainTableBody').innerHTML =
-        '<tr><td colspan="2" class="muted">Ingen data ännu.</td></tr>';
+        '<tr><td colspan="2" class="muted">No data yet.</td></tr>';
       window.latestDomainStats = [];
     }
 
@@ -668,26 +858,26 @@
 
     document.getElementById('downloadResultBtn').addEventListener('click', function () {
       const content = document.getElementById('result').value;
-      if (!content) return alert('Det finns inga mejladresser att ladda ner.');
+      if (!content) return alert('There are no email addresses to download.');
       downloadText('emails.txt', content);
     });
 
     document.getElementById('downloadDuplicatesBtn').addEventListener('click', function () {
       const content = document.getElementById('duplicates').value;
-      if (!content) return alert('Det finns inga dubletter att ladda ner.');
+      if (!content) return alert('There are no duplicates to download.');
       downloadText('duplicate-emails.txt', content);
     });
 
     document.getElementById('downloadDomainsBtn').addEventListener('click', function () {
       const content = document.getElementById('uniqueDomains').value;
-      if (!content) return alert('Det finns inga domäner att ladda ner.');
+      if (!content) return alert('There are no domains to download.');
       downloadText('domains.txt', content);
     });
 
     document.getElementById('downloadDomainStatsBtn').addEventListener('click', function () {
       const stats = window.latestDomainStats || [];
-      if (!stats.length) return alert('Det finns ingen domänstatistik att ladda ner.');
-      const rows = [['Domän', 'Antal'], ...stats];
+      if (!stats.length) return alert('There are no domain statistics to download.');
+      const rows = [['Domain', 'Count'], ...stats];
       downloadCsv('domain-stats.csv', rows);
     });
 
@@ -700,18 +890,18 @@
       const fileStatus = document.getElementById('fileStatus');
 
       if (!file) {
-        fileStatus.textContent = 'Ingen fil vald.';
+        fileStatus.textContent = 'No file selected.';
         return;
       }
 
-      fileStatus.textContent = 'Vald fil: ' + file.name;
+      fileStatus.textContent = 'Selected file: ' + file.name;
 
       const reader = new FileReader();
       reader.onload = function (e) {
         document.getElementById('content').value = e.target.result;
       };
       reader.onerror = function () {
-        alert('Kunde inte läsa filen.');
+        alert('Could not read the file.');
       };
       reader.readAsText(file, 'utf-8');
     });
