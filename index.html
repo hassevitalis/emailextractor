@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email Extractor Pro</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --border: #d9e1ec;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #059669;
+      --danger: #dc2626;
+      --secondary: #e5e7eb;
+      --shadow: 0 10px 25px rgba(0,0,0,0.06);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 32px auto;
+      padding: 0 16px 32px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h2, .card h3 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .help {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: -2px;
+      margin-bottom: 12px;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      font: inherit;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .small-textarea {
+      min-height: 110px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .row > div {
+      flex: 1 1 240px;
+    }
+
+    .checks label,
+    .radios label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .inline {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .inline input[type="text"] {
+      flex: 1;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: #111827;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .stat .value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+    }
+
+    .scroll-table {
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Email Extractor Pro</h1>
+    <div class="subtitle">
+      Extrahera mejladresser från text eller fil, ta bort dubletter, analysera domäner och exportera resultat.
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>1. Inmatning</h2>
+
+          <label for="content">Klistra in text</label>
+          <div class="help">Fungerar med fri text, mejltrådar, HTML, CSV-innehåll och listor.</div>
+          <textarea id="content" placeholder="Klistra in text här..."></textarea>
+
+          <label for="fileInput" style="margin-top:16px;">Eller ladda upp fil</label>
+          <div class="help">Stöd för .txt, .csv, .log, .json, .xml, .html och andra textbaserade filer.</div>
+          <input type="file" id="fileInput" accept=".txt,.csv,.log,.html,.json,.xml,.tsv,.md">
+
+          <div class="footer-note" id="fileStatus">Ingen fil vald.</div>
+        </div>
+
+        <div class="card">
+          <h2>2. Resultat</h2>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Totalt hittade</div>
+              <div class="value" id="totalCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Efter filtrering</div>
+              <div class="value" id="filteredCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Unika mejladresser</div>
+              <div class="value" id="resultCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Dubletter</div>
+              <div class="value" id="duplicateCount">0</div>
+            </div>
+          </div>
+
+          <label for="result">Mejladresser</label>
+          <textarea id="result" placeholder="Extraherade mejladresser visas här..."></textarea>
+
+          <div class="actions">
+            <button class="btn-success" id="copyResultBtn">Kopiera mejladresser</button>
+            <button class="btn-secondary" id="downloadResultBtn">Ladda ner mejladresser</button>
+          </div>
+
+          <h3 style="margin-top:20px;">Dubletter</h3>
+          <textarea id="duplicates" class="small-textarea" placeholder="Dubletter visas här..."></textarea>
+
+          <div class="actions">
+            <button class="btn-secondary" id="copyDuplicatesBtn">Kopiera dubletter</button>
+            <button class="btn-secondary" id="downloadDuplicatesBtn">Ladda ner dubletter</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>3. Inställningar</h2>
+
+          <div class="checks">
+            <label><input type="checkbox" id="unique" checked> Ta bort dubletter</label>
+            <label><input type="checkbox" id="sort" checked> Sortera alfabetiskt</label>
+            <label><input type="checkbox" id="lowercase"> Konvertera till gemener</label>
+          </div>
+
+          <h3>Separator i resultat</h3>
+          <div class="radios">
+            <label><input type="radio" name="separator" value="newline" checked> Ny rad</label>
+            <label><input type="radio" name="separator" value="tab"> Tab</label>
+            <label><input type="radio" name="separator" value="comma"> Komma + mellanslag</label>
+            <label><input type="radio" name="separator" value="semicolon"> Semikolon + mellanslag</label>
+            <label><input type="radio" name="separator" value="custom"> Anpassad separator</label>
+          </div>
+
+          <div class="inline" style="margin-top:10px;">
+            <input type="text" id="customSeparator" value=" | " disabled>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>4. Exkludera adresser</h2>
+          <div class="help">Dessa adresser tas bort från slutresultatet.</div>
+          <textarea id="excludeEmails" class="small-textarea" placeholder="exempel@domän.se&#10;annan@domän.se"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>5. Filtrera domäner</h2>
+          <div class="help">Alla adresser från dessa domäner tas bort, till exempel interna domäner.</div>
+          <textarea id="excludeDomains" class="small-textarea" placeholder="företag.se&#10;gmail.com"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>6. Kör</h2>
+          <div class="actions">
+            <button class="btn-primary" id="extractBtn">Extrahera mejladresser</button>
+            <button class="btn-danger" id="clearBtn">Rensa allt</button>
+          </div>
+          <div class="footer-note">
+            Matchningen är praktisk för vanliga mejladresser och domänanalys.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>7. Domänanalys</h2>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Unika domäner</div>
+          <div class="value" id="domainCount">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Vanligaste domän</div>
+          <div class="value" id="topDomain" style="font-size:18px;">-</div>
+        </div>
+        <div class="stat">
+          <div class="label">Antal på toppdomän</div>
+          <div class="value" id="topDomainCount">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Domänexport</div>
+          <div class="value" style="font-size:18px;">CSV</div>
+        </div>
+      </div>
+
+      <label for="uniqueDomains">Unika domäner</label>
+      <textarea id="uniqueDomains" class="small-textarea" placeholder="Unika domäner visas här..."></textarea>
+
+      <div class="actions">
+        <button class="btn-secondary" id="copyDomainsBtn">Kopiera domäner</button>
+        <button class="btn-secondary" id="downloadDomainsBtn">Ladda ner domäner</button>
+        <button class="btn-secondary" id="downloadDomainStatsBtn">Ladda ner domänstatistik CSV</button>
+      </div>
+
+      <h3 style="margin-top:20px;">Antal per domän</h3>
+      <div class="scroll-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Domän</th>
+              <th>Antal</th>
+            </tr>
+          </thead>
+          <tbody id="domainTableBody">
+            <tr>
+              <td colspan="2" class="muted">Ingen data ännu.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getSeparator() {
+      const selected = document.querySelector('input[name="separator"]:checked').value;
+      if (selected === 'newline') return '\n';
+      if (selected === 'tab') return '\t';
+      if (selected === 'comma') return ', ';
+      if (selected === 'semicolon') return '; ';
+      return document.getElementById('customSeparator').value;
+    }
+
+    function extractEmails(text) {
+      if (!text) return [];
+      const matches = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
+      return matches || [];
+    }
+
+    function extractDomains(text) {
+      if (!text) return [];
+      return text
+        .split(/[\s,;\n\r\t]+/)
+        .map(x => x.trim().toLowerCase())
+        .map(x => x.replace(/^@/, ''))
+        .filter(Boolean);
+    }
+
+    function filterExcludedEmails(emails, excludedEmails) {
+      const excludedSet = new Set(excludedEmails.map(e => e.toLowerCase()));
+      return emails.filter(email => !excludedSet.has(email.toLowerCase()));
+    }
+
+    function filterExcludedDomains(emails, excludedDomains) {
+      const excludedSet = new Set(excludedDomains.map(d => d.toLowerCase()));
+      return emails.filter(email => {
+        const domain = getDomainFromEmail(email);
+        return !excludedSet.has(domain);
+      });
+    }
+
+    function getDomainFromEmail(email) {
+      const parts = email.split('@');
+      return parts.length > 1 ? parts[1].toLowerCase() : '';
+    }
+
+    function dedupeEmails(emails) {
+      const seen = new Set();
+      const unique = [];
+      const duplicates = [];
+
+      for (const email of emails) {
+        const key = email.toLowerCase();
+        if (seen.has(key)) {
+          duplicates.push(email);
+        } else {
+          seen.add(key);
+          unique.push(email);
+        }
+      }
+
+      return { unique, duplicates };
+    }
+
+    function buildDomainStats(emails) {
+      const domainMap = new Map();
+
+      for (const email of emails) {
+        const domain = getDomainFromEmail(email);
+        if (!domain) continue;
+        domainMap.set(domain, (domainMap.get(domain) || 0) + 1);
+      }
+
+      const sorted = Array.from(domainMap.entries())
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }));
+
+      return sorted;
+    }
+
+    function processEmails() {
+      const content = document.getElementById('content').value;
+      const excludeText = document.getElementById('excludeEmails').value;
+      const excludeDomainsText = document.getElementById('excludeDomains').value;
+      const removeDuplicates = document.getElementById('unique').checked;
+      const sort = document.getElementById('sort').checked;
+      const lowercase = document.getElementById('lowercase').checked;
+      const separator = getSeparator();
+
+      let emails = extractEmails(content);
+      const totalFound = emails.length;
+
+      const excludedEmails = extractEmails(excludeText);
+      const excludedDomains = extractDomains(excludeDomainsText);
+
+      emails = filterExcludedEmails(emails, excludedEmails);
+      emails = filterExcludedDomains(emails, excludedDomains);
+
+      const afterFiltering = emails.length;
+
+      if (lowercase) {
+        emails = emails.map(email => email.toLowerCase());
+      }
+
+      let finalEmails = emails;
+      let duplicateEmails = [];
+
+      if (removeDuplicates) {
+        const deduped = dedupeEmails(finalEmails);
+        finalEmails = deduped.unique;
+        duplicateEmails = deduped.duplicates;
+      }
+
+      if (sort) {
+        finalEmails.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+        duplicateEmails.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+      }
+
+      const domainStats = buildDomainStats(finalEmails);
+      const uniqueDomains = domainStats.map(([domain]) => domain);
+
+      document.getElementById('result').value = finalEmails.join(separator);
+      document.getElementById('duplicates').value = duplicateEmails.join(separator);
+
+      document.getElementById('totalCount').textContent = totalFound;
+      document.getElementById('filteredCount').textContent = afterFiltering;
+      document.getElementById('resultCount').textContent = finalEmails.length;
+      document.getElementById('duplicateCount').textContent = duplicateEmails.length;
+
+      document.getElementById('uniqueDomains').value = uniqueDomains.join('\n');
+      document.getElementById('domainCount').textContent = uniqueDomains.length;
+
+      if (domainStats.length > 0) {
+        document.getElementById('topDomain').textContent = domainStats[0][0];
+        document.getElementById('topDomainCount').textContent = domainStats[0][1];
+      } else {
+        document.getElementById('topDomain').textContent = '-';
+        document.getElementById('topDomainCount').textContent = '0';
+      }
+
+      renderDomainTable(domainStats);
+      window.latestDomainStats = domainStats;
+    }
+
+    function renderDomainTable(domainStats) {
+      const tbody = document.getElementById('domainTableBody');
+
+      if (!domainStats.length) {
+        tbody.innerHTML = '<tr><td colspan="2" class="muted">Ingen data ännu.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = domainStats
+        .map(([domain, count]) => `
+          <tr>
+            <td>${escapeHtml(domain)}</td>
+            <td>${count}</td>
+          </tr>
+        `)
+        .join('');
+    }
+
+    function toggleCustomSeparator() {
+      const isCustom = document.querySelector('input[name="separator"]:checked').value === 'custom';
+      document.getElementById('customSeparator').disabled = !isCustom;
+    }
+
+    async function copyFromElement(elementId, button) {
+      const text = document.getElementById(elementId).value;
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const oldText = button.textContent;
+        button.textContent = 'Kopierat';
+        setTimeout(() => {
+          button.textContent = oldText;
+        }, 1200);
+      } catch (err) {
+        alert('Kunde inte kopiera till urklipp.');
+      }
+    }
+
+    function downloadText(filename, content) {
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadCsv(filename, rows) {
+      const csvContent = rows
+        .map(row => row.map(csvEscape).join(','))
+        .join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvEscape(value) {
+      const stringValue = String(value ?? '');
+      if (/[",\n]/.test(stringValue)) {
+        return '"' + stringValue.replace(/"/g, '""') + '"';
+      }
+      return stringValue;
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function clearAll() {
+      document.getElementById('content').value = '';
+      document.getElementById('excludeEmails').value = '';
+      document.getElementById('excludeDomains').value = '';
+      document.getElementById('result').value = '';
+      document.getElementById('duplicates').value = '';
+      document.getElementById('uniqueDomains').value = '';
+      document.getElementById('totalCount').textContent = '0';
+      document.getElementById('filteredCount').textContent = '0';
+      document.getElementById('resultCount').textContent = '0';
+      document.getElementById('duplicateCount').textContent = '0';
+      document.getElementById('domainCount').textContent = '0';
+      document.getElementById('topDomain').textContent = '-';
+      document.getElementById('topDomainCount').textContent = '0';
+      document.getElementById('fileInput').value = '';
+      document.getElementById('fileStatus').textContent = 'Ingen fil vald.';
+      document.getElementById('domainTableBody').innerHTML =
+        '<tr><td colspan="2" class="muted">Ingen data ännu.</td></tr>';
+      window.latestDomainStats = [];
+    }
+
+    document.getElementById('extractBtn').addEventListener('click', processEmails);
+    document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+    document.getElementById('copyResultBtn').addEventListener('click', function () {
+      copyFromElement('result', this);
+    });
+
+    document.getElementById('copyDuplicatesBtn').addEventListener('click', function () {
+      copyFromElement('duplicates', this);
+    });
+
+    document.getElementById('copyDomainsBtn').addEventListener('click', function () {
+      copyFromElement('uniqueDomains', this);
+    });
+
+    document.getElementById('downloadResultBtn').addEventListener('click', function () {
+      const content = document.getElementById('result').value;
+      if (!content) return alert('Det finns inga mejladresser att ladda ner.');
+      downloadText('emails.txt', content);
+    });
+
+    document.getElementById('downloadDuplicatesBtn').addEventListener('click', function () {
+      const content = document.getElementById('duplicates').value;
+      if (!content) return alert('Det finns inga dubletter att ladda ner.');
+      downloadText('duplicate-emails.txt', content);
+    });
+
+    document.getElementById('downloadDomainsBtn').addEventListener('click', function () {
+      const content = document.getElementById('uniqueDomains').value;
+      if (!content) return alert('Det finns inga domäner att ladda ner.');
+      downloadText('domains.txt', content);
+    });
+
+    document.getElementById('downloadDomainStatsBtn').addEventListener('click', function () {
+      const stats = window.latestDomainStats || [];
+      if (!stats.length) return alert('Det finns ingen domänstatistik att ladda ner.');
+      const rows = [['Domän', 'Antal'], ...stats];
+      downloadCsv('domain-stats.csv', rows);
+    });
+
+    document.querySelectorAll('input[name="separator"]').forEach(radio => {
+      radio.addEventListener('change', toggleCustomSeparator);
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const fileStatus = document.getElementById('fileStatus');
+
+      if (!file) {
+        fileStatus.textContent = 'Ingen fil vald.';
+        return;
+      }
+
+      fileStatus.textContent = 'Vald fil: ' + file.name;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById('content').value = e.target.result;
+      };
+      reader.onerror = function () {
+        alert('Kunde inte läsa filen.');
+      };
+      reader.readAsText(file, 'utf-8');
+    });
+
+    window.latestDomainStats = [];
+    toggleCustomSeparator();
+  </script>
+</body>
+</html>
