@@ -1,4 +1,5 @@
 [How the email extractor works]
+
 Paste text or upload a supported file.
 Click Extract email addresses.
 Review unique email addresses, duplicates and domain statistics.
@@ -6,6 +7,7 @@ Copy or download the result as text or CSV.
 The tool is built for fast browser-based processing and simple list cleanup workflows.
 
 [FAQ]
+
 Is this email extractor free?
  - Yes. The tool is free to use in your browser.
 
